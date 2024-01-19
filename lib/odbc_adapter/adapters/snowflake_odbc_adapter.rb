@@ -16,6 +16,35 @@ module ODBCAdapter
         name.to_s
       end
 
+      # Override all the schema fetching methods from
+      # `ODBCAdapter::SchemaStatements` to return empty arrays. These are
+      # currently making expensive calls to snowflake and returning  empty
+      # arrays anyway. Until we figure out how to make them work correctly, at
+      # least make them fast.
+      def tables(*args)
+        []
+      end
+
+      def views(*args)
+        []
+      end
+
+      def indexes(*args)
+        []
+      end
+
+      def columns(*args)
+        []
+      end
+
+      def primary_key(*args)
+        []
+      end
+
+      def foreign_keys(*args)
+        []
+      end
+
       private
 
       # Override dbms_type_cast to get the values encoded in UTF-8
